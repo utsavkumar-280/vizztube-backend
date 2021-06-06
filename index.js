@@ -4,6 +4,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 require("dotenv").config();
 
+const videos = require("./routes/videos.router");
+
 const dbConnection = require("./db/dbConnect.js");
 const route404Handler = require("./middlewares/route404Handler");
 const errorHandler = require("./middlewares/errorHandler");
@@ -26,6 +28,8 @@ app.get("/hello", (req, res) => {
 		message: "Hey, What's up?",
 	});
 });
+
+app.use("/videos", videos);
 
 app.use(route404Handler);
 app.use(errorHandler);
