@@ -20,6 +20,9 @@ const VideoSchema = new Schema({
 	author: {
 		type: String,
 	},
+	authorImg: {
+		type: String,
+	},
 });
 
 const Video = model("Video", VideoSchema);
