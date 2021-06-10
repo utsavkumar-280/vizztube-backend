@@ -32,4 +32,23 @@ const addNewVideo = async (req, res) => {
 	}
 };
 
-module.exports = { getAllVideos, addNewVideo };
+const getVideoById = async (req, res) => {
+	try {
+		const { vidId } = req.params;
+		console.log("vidID:", vidId);
+		const videoFound = await Video.findById(vidId);
+		console.log("videoFound:", videoFound);
+		videoFound
+			? res.status(200).json({ response: videoFound })
+			: res.status(404).json({ message: "video not found in Database" });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({
+			message:
+				"Server Error, request failed. See error message for more details.",
+			errorMessage: error.message,
+		});
+	}
+};
+
+module.exports = { getAllVideos, addNewVideo, getVideoById };
