@@ -22,7 +22,7 @@ dbConnection();
 app.get("/", (req, res) => {
 	res.send("Welcome to VizzTube Apis");
 });
-app.get("/hello", (req, res) => {
+app.get("/hellotest", (req, res) => {
 	res.json({
 		success: true,
 		message: "Hey, What's up?",
