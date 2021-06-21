@@ -7,7 +7,7 @@ const UserSchema = new Schema(
 			type: String,
 			required: "firstname of the user is required",
 		},
-		laststname: {
+		lastname: {
 			type: String,
 			required: "lastname of the user is required",
 		},
