@@ -10,9 +10,9 @@ const userAuthorization = async (req, res, next) => {
 
 		const user = await User.findById(decoded.userId);
 
-		console.log({ token });
-		console.log({ decoded });
-		console.log({ user });
+		// console.log({ token });
+		// console.log({ decoded });
+		// console.log({ user });
 		if (user) {
 			req.user = user;
 			next();
