@@ -41,7 +41,9 @@ const userAuthenticator = async (req, res) => {
 				const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
 					expiresIn: "48h",
 				});
-				res.status(200).json({ firstname: user.firstname, token });
+				res
+					.status(200)
+					.json({ response: { firstname: user.firstname, token } });
 			} else {
 				res.status(401).json({ message: "email or password is incorrect" });
 			}
