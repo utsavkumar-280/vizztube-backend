@@ -9,7 +9,7 @@ const createPlaylist = async (req, res) => {
 		let savedNewPlaylist = await NewPlaylist.save();
 
 		savedNewPlaylist = await savedNewPlaylist
-			.populate({ path: "videos.videoId" })
+			.populate({ path: "videos.video" })
 			.execPopulate();
 		savedNewPlaylist.userId = null;
 		res.status(201).json({ response: savedNewPlaylist });
@@ -26,7 +26,7 @@ const getAllPlaylists = async (req, res) => {
 	try {
 		const userId = req.user._id;
 		let playlists = await Playlist.find({ userId }).populate({
-			path: "videos.videoId",
+			path: "videos.video",
 		});
 
 		if (playlists.length === 0) {
@@ -111,7 +111,7 @@ const updatePlaylist = async (req, res) => {
 		let updatedPlaylist = extend(playlist, updateDetails);
 		updatedPlaylist = await updatedPlaylist.save();
 		updatedPlaylist = await updatedPlaylist
-			.populate({ path: "videos.videoId" })
+			.populate({ path: "videos.video" })
 			.execPopulate();
 		updatedPlaylist.userId = null;
 		res.status(200).json({ response: updatedPlaylist });
@@ -149,21 +149,19 @@ const modifyVideosInPlaylist = async (req, res) => {
 		const videoDetails = req.body;
 
 		const isExistingVideo = playlist.videos.find(
-			(video) => video.videoId === videoDetails.videoId
+			(vid) => vid.video === videoDetails.video
 		);
 
 		if (isExistingVideo) {
 			const modifiedVideos = playlist.videos.filter(
-				(video) => video.videoId !== videoDetails.videoId
+				(vid) => vid.video !== videoDetails.video
 			);
 			playlist.videos = modifiedVideos;
 		} else {
 			playlist.videos.push(videoDetails);
 		}
 		playlist = await playlist.save();
-		playlist = await playlist
-			.populate({ path: "videos.videoId" })
-			.execPopulate();
+		playlist = await playlist.populate({ path: "videos.video" }).execPopulate();
 		playlist.userId = null;
 		res.status(201).json({
 			response: playlist,

@@ -22,7 +22,7 @@ const PlaylistSchema = new Schema(
 		},
 		videos: [
 			{
-				videoId: {
+				video: {
 					type: Schema.Types.ObjectId,
 					ref: "Video",
 				},
