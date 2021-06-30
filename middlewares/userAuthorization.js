@@ -11,8 +11,6 @@ const userAuthorization = async (req, res, next) => {
 
 		const user = await User.findById(decoded.userId);
 
-		console.log({ decoded });
-		console.log({ user });
 		if (user) {
 			req.user = user;
 			next();

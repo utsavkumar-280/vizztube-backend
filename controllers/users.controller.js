@@ -3,6 +3,25 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const JWT_SECRET = process.env.JWT_SECRET;
 
+const getUserDetails = async (req, res) => {
+	const { user } = req;
+	res.status(200).json({
+		response: {
+			email: user.email,
+			firstname: user.firstname,
+			lastname: user.lastname,
+		},
+	});
+	try {
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			message: "Getting User details failed",
+			errorMessage: error.message,
+		});
+	}
+};
+
 const createUser = async (req, res) => {
 	try {
 		const userDetails = req.body;
@@ -85,6 +104,7 @@ const updatePassword = async (req, res) => {
 };
 
 module.exports = {
+	getUserDetails,
 	createUser,
 	userAuthenticator,
 	updatePassword,
