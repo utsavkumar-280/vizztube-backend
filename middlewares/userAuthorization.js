@@ -17,13 +17,13 @@ const userAuthorization = async (req, res, next) => {
 			req.user = user;
 			next();
 		} else {
-			res.status(403).json({ message: "Unauthorized Access" });
+			res.status(401).json({ message: "Unauthorized Access" });
 			return;
 		}
 	} catch (error) {
 		console.log(error);
 		res
-			.status(403)
+			.status(401)
 			.json({ message: "Unauthorized Access", errorMessage: error.message });
 	}
 };

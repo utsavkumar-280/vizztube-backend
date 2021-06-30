@@ -45,10 +45,10 @@ const userAuthenticator = async (req, res) => {
 					.status(200)
 					.json({ response: { firstname: user.firstname, token } });
 			} else {
-				res.status(401).json({ message: "email or password is incorrect" });
+				res.status(403).json({ message: "email or password is incorrect" });
 			}
 		} else {
-			res.status(401).json({ message: "email or password is incorrect" });
+			res.status(403).json({ message: "email or password is incorrect" });
 		}
 	} catch (error) {
 		console.log(error);
@@ -65,7 +65,7 @@ const updatePassword = async (req, res) => {
 		let user = await User.findOne({ email: userDetails.email });
 
 		if (!user) {
-			res.status(401).json({ message: "User does not exists" });
+			res.status(403).json({ message: "User does not exists" });
 		}
 
 		const salt = await bcrypt.genSalt(10);
