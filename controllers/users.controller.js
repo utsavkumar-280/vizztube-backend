@@ -32,6 +32,7 @@ const userAuthenticator = async (req, res) => {
 	try {
 		const email = req.header("email");
 		const password = req.header("password");
+
 		const user = await User.findOne({ email });
 
 		if (user) {
@@ -63,13 +64,14 @@ const updatePassword = async (req, res) => {
 	try {
 		const userDetails = req.body;
 		let user = await User.findOne({ email: userDetails.email });
+		console.log({ user });
 
 		if (!user) {
 			res.status(403).json({ message: "User does not exists" });
 		}
 
 		const salt = await bcrypt.genSalt(10);
-		user.password = await bcrypt.hash(user.password, salt);
+		user.password = await bcrypt.hash(userDetails.password, salt);
 		user = await user.save();
 
 		res.status(200).json({ message: "User password updated" });
