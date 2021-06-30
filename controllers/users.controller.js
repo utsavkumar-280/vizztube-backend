@@ -45,10 +45,10 @@ const userAuthenticator = async (req, res) => {
 					.status(200)
 					.json({ response: { firstname: user.firstname, token } });
 			} else {
-				res.status(403).json({ message: "email or password is incorrect" });
+				res.status(403).json({ message: " password is incorrect" });
 			}
 		} else {
-			res.status(403).json({ message: "email or password is incorrect" });
+			res.status(403).json({ message: "email  is incorrect" });
 		}
 	} catch (error) {
 		console.log(error);
