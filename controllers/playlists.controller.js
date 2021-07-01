@@ -174,6 +174,27 @@ const modifyVideosInPlaylist = async (req, res) => {
 	}
 };
 
+const addVideosInPlaylist = async (req, res) => {
+	try {
+		let playlist = req.playlist;
+		const videoDetails = req.body;
+
+		playlist.videos.push(videoDetails);
+
+		playlist = await playlist.save();
+		playlist = await playlist.populate({ path: "videos.video" }).execPopulate();
+		playlist.userId = null;
+		res.status(201).json({
+			response: playlist,
+		});
+	} catch (error) {
+		res.status(500).json({
+			message: "Adding or Removing videos from the playlist failed",
+			errorMessage: error.message,
+		});
+	}
+};
+
 module.exports = {
 	createPlaylist,
 	getAllPlaylists,
@@ -181,4 +202,5 @@ module.exports = {
 	updatePlaylist,
 	deletePlaylist,
 	modifyVideosInPlaylist,
+	addVideosInPlaylist,
 };
