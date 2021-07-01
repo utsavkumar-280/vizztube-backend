@@ -149,12 +149,12 @@ const modifyVideosInPlaylist = async (req, res) => {
 		const videoDetails = req.body;
 
 		const isExistingVideo = playlist.videos.find(
-			(vid) => vid.video === videoDetails.video
+			(vid) => vid.video == videoDetails.video
 		);
 
 		if (isExistingVideo) {
-			const modifiedVideos = playlist.videos.filter(
-				(vid) => vid.video !== videoDetails.video
+			let modifiedVideos = playlist.videos.filter(
+				(vid) => vid.video != videoDetails.video
 			);
 			playlist.videos = modifiedVideos;
 		} else {

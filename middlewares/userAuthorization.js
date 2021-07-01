@@ -4,7 +4,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const userAuthorization = async (req, res, next) => {
 	try {
-		console.log(req.headers);
 		const tokenContainer = req.headers.authorization;
 		const token = tokenContainer.split(" ")[1];
 		const decoded = jwt.verify(token, JWT_SECRET);
