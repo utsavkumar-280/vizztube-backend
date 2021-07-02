@@ -5,7 +5,8 @@ const createPlaylist = async (req, res) => {
 	try {
 		let playlistDetails = req.body;
 		const userId = req.user._id;
-		const NewPlaylist = new Playlist({ ...userId, playlistDetails });
+		const NewPlaylist = new Playlist({ userId, ...playlistDetails });
+		console.log({ playlistDetails, NewPlaylist });
 		let savedNewPlaylist = await NewPlaylist.save();
 
 		savedNewPlaylist = await savedNewPlaylist
